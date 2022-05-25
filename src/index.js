@@ -22,15 +22,19 @@ const preProcessing = (workingDir) => {
 }
 
 const createWindow = () => {
-  selectWorkingDirectory()
-    .then(preProcessing)
+  //selectWorkingDirectory()
+    //.then(preProcessing)
+    Promise.resolve()
     .then(workingDir => {
       const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        webPreferences: {
+          preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+        }
       });
 
-      mainWindow.loadFile(path.join(__dirname, 'index.html'));
+      mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
       // mainWindow.webContents.openDevTools();
     });
